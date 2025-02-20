@@ -1,7 +1,7 @@
 # TODO Checklist: Optimized MLP with Numba
 
 ## Phase 1: Environment & Repository Setup
-- [ ] **Repository Structure**
+- [ X ] **Repository Structure**
   - [ ] Create project folder (`mlp_numba_project`)
   - [ ] Create files: `main.py`, `model.py`, `optimizer.py`, `data_loader.py`, `benchmark.py`, `utils.py`, `README.md`
   - [ ] Create directories: `/experiments`, `/results`
