@@ -1,5 +1,5 @@
 #Load MNIST data
-import tensorflow.keras.datasets
+import tensorflow.keras.datasets # type: ignore
 
 def load_data():
     mnist = tensorflow.keras.datasets.mnist.load_data(

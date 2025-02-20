@@ -13,15 +13,15 @@
   - [X] Document setup steps in `README.md`
 
 ## Phase 2: Data Handling & Preprocessing
-- [ ] **Data Loader**
-  - [ ] Write a function in `data_loader.py` to download/load the MNIST dataset
-- [ ] **Data Preprocessing**
-  - [ ] Normalize pixel values to the range [0, 1]
-  - [ ] Flatten images from 28×28 to a 784-dimensional vector
-  - [ ] Implement one-hot encoding for labels (10 classes)
-- [ ] **Unit Testing**
-  - [ ] Create tests to verify data loading accuracy
-  - [ ] Create tests to confirm correct normalization and one-hot encoding
+- [X] **Data Loader**
+  - [X] Write a function in `data_loader.py` to download/load the MNIST dataset
+- [X] **Data Preprocessing**
+  - [X] Normalize pixel values to the range [0, 1]
+  - [X] Flatten images from 28×28 to a 784-dimensional vector
+  - [X] Implement one-hot encoding for labels (10 classes)
+- [X] **Unit Testing**
+  - [X] Create tests to verify data loading accuracy
+  - [X] Create tests to confirm correct normalization and one-hot encoding
 
 ## Phase 3: Core MLP Model Development
 - [ ] **MLP Class Skeleton**
