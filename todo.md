@@ -1,16 +1,16 @@
 # TODO Checklist: Optimized MLP with Numba
 
 ## Phase 1: Environment & Repository Setup
-- [ X ] **Repository Structure**
-  - [ ] Create project folder (`mlp_numba_project`)
-  - [ ] Create files: `main.py`, `model.py`, `optimizer.py`, `data_loader.py`, `benchmark.py`, `utils.py`, `README.md`
-  - [ ] Create directories: `/experiments`, `/results`
-- [ ] **Environment Setup**
-  - [ ] Set up a Python virtual environment (Python 3.8+)
-  - [ ] Install required libraries: `numpy`, `numba`, `scipy` (if needed), `matplotlib`, and timing utilities (`time` or `timeit`)
-- [ ] **Version Control**
-  - [ ] Initialize a Git repository
-  - [ ] Document setup steps in `README.md`
+- [X] **Repository Structure**
+  - [X] Create project folder (`mlp_numba_project`)
+  - [X] Create files: `main.py`, `model.py`, `optimizer.py`, `data_loader.py`, `benchmark.py`, `utils.py`, `README.md`
+  - [X] Create directories: `/experiments`, `/results`
+- [X] **Environment Setup**
+  - [X] Set up a Python virtual environment (Python 3.8+)
+  - [X] Install required libraries: `numpy`, `numba`, `scipy` (if needed), `matplotlib`, and timing utilities (`time` or `timeit`)
+- [X] **Version Control**
+  - [X] Initialize a Git repository
+  - [X] Document setup steps in `README.md`
 
 ## Phase 2: Data Handling & Preprocessing
 - [ ] **Data Loader**
