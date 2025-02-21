@@ -24,20 +24,20 @@
   - [X] Create tests to confirm correct normalization and one-hot encoding
 
 ## Phase 3: Core MLP Model Development
-- [ ] **MLP Class Skeleton**
-  - [ ] Define an MLP class in `model.py`
-- [ ] **Model Architecture Implementation**
-  - [ ] Input Layer: Shape `(Batch, 784)`
-  - [ ] Hidden Layer 1: Shape `(784, 128)` with ReLU
-  - [ ] Hidden Layer 2: Shape `(128, 128)` with ReLU
-  - [ ] Hidden Layer 3: Shape `(128, 128)` with ReLU
-  - [ ] Output Layer: Shape `(128, 10)` with Softmax
-- [ ] **Forward Propagation**
-  - [ ] Implement forward pass for each layer (matrix multiplications, activations)
-- [ ] **Backward Propagation**
-  - [ ] Implement gradient computation for each layer
-- [ ] **Initial Testing**
-  - [ ] Compare outputs and gradients against a baseline NumPy implementation
+- [x] **MLP Class Skeleton**
+  - [X] Define an MLP class in `model.py`
+- [X] **Model Architecture Implementation**
+  - [X] Input Layer: Shape `(Batch, 784)`
+  - [X] Hidden Layer 1: Shape `(784, 128)` with ReLU
+  - [X] Hidden Layer 2: Shape `(128, 128)` with ReLU
+  - [X] Hidden Layer 3: Shape `(128, 128)` with ReLU
+  - [X] Output Layer: Shape `(128, 10)` with Softmax
+- [X] **Forward Propagation**
+  - [X] Implement forward pass for each layer (matrix multiplications, activations)
+- [X] **Backward Propagation**
+  - [X] Implement gradient computation for each layer
+- [X] **Initial Testing**
+  - [X] Compare outputs and gradients against a baseline NumPy implementation
 
 ## Phase 4: Numba-Based Optimization
 - [ ] **Refactoring Forward Propagation**
@@ -51,21 +51,21 @@
   - [ ] Measure performance improvements over the pure NumPy version
 
 ## Phase 5: Optimizer Integration (Adam & SGD)
-- [ ] **Optimizer Interface**
-  - [ ] Define a common interface for optimizers in `optimizer.py`
-- [ ] **Adam Optimizer**
-  - [ ] Implement Adam update rules with appropriate hyperparameters
-- [ ] **SGD Optimizer**
-  - [ ] Implement a fallback SGD optimizer
-- [ ] **Integration**
-  - [ ] Integrate optimizer functionality into the MLP class
-- [ ] **Testing**
-  - [ ] Write unit tests to verify correct weight updates
+- [X] **Optimizer Interface**
+  - [X] Define a common interface for optimizers in `optimizer.py`
+- [X] **Adam Optimizer**
+  - [X] Implement Adam update rules with appropriate hyperparameters
+- [X] **SGD Optimizer** (Not required anymore)
+  - [X] Implement a fallback SGD optimizer
+- [X] **Integration**
+  - [X] Integrate optimizer functionality into the MLP class
+- [X] **Testing**
+  - [X] Write unit tests to verify correct weight updates
 
 ## Phase 6: Training Loop & Benchmarking
-- [ ] **Training Loop**
-  - [ ] Implement the overall training loop in `main.py`
-  - [ ] Integrate data loading, forward pass, loss calculation, backward pass, and optimizer updates
+- [X] **Training Loop**
+  - [X] Implement the overall training loop in `main.py`
+  - [X] Integrate data loading, forward pass, loss calculation, backward pass, and optimizer updates
 - [ ] **Batch Processing**
   - [ ] Implement batch handling and experiment with sizes (32, 64, 128, etc.)
 - [ ] **Metric Logging**
