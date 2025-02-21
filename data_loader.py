@@ -7,6 +7,10 @@ def one_hot_encode(y):
     one_hot[np.arange(y.size), y] = 1
     return one_hot
 
+def transform_data(x):
+    x = x.reshape(x.shape[0], -1)
+    return x
+
 def load_data():
     mnist = tensorflow.keras.datasets.mnist.load_data(
         path="mnist.npz"
@@ -17,6 +21,10 @@ def load_data():
 
     #Normalize pixel values to between 0 and 1
     x_train, x_test = x_train / 255.0, x_test / 255.0
+
+    #Transform data
+    x_train = transform_data(x_train)
+    x_test = transform_data(x_test)
 
     #One-hot encode the labels using NumPy
     y_train = one_hot_encode(y_train)
