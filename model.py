@@ -33,7 +33,7 @@ class NeuralNetwork:
     
     def cross_entropy_loss(self, y, y_hat):
         return -np.sum(y * np.log(y_hat)) / y.shape[0]
-    
+
     def forward_propagation(self, X):
         self.z1 = np.dot(X, self.W1) + self.b1
         self.a1 = self.relu(self.z1)
