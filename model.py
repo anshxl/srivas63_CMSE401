@@ -91,3 +91,52 @@ class NeuralNetwork:
 
     def load_model(self, file_name):
         self.W1, self.b1, self.W2, self.b2, self.W3, self.b3 = np.load(file_name, allow_pickle=True)
+    
+    def __repr__(self):
+        return f"NeuralNetwork(input_size={self.input_size}, hidden_size={self.hidden_size}, output_size={self.output_size})"
+
+    def __str__(self):
+        return f"NeuralNetwork with {self.input_size} input nodes, {self.hidden_size} hidden nodes, and {self.output_size} output nodes"
+    
+    def __len__(self):
+        return self.hidden
+    
+    def plot_architecture(self, filename="model_architecture", format="png", show_inline=False):
+        """
+        Plots the model architecture and saves it to a file.
+        
+        If running in a Jupyter Notebook, it will also display the plot inline.
+        
+        Requires:
+            - graphviz: Install via pip install graphviz
+            - IPython: Typically available in Jupyter environments.
+        """
+        try:
+            from graphviz import Digraph #type: ignore
+            from IPython.display import Image, display
+        except ImportError as e:
+            raise ImportError("graphviz and IPython are required. Install with 'pip install graphviz ipython'.")
+
+        dot = Digraph(name="Model Architecture", format=format)
+        dot.attr(rankdir='LR', splines='ortho')
+        
+        # Create nodes for each layer
+        dot.node("input", f"Input\n({self.input_size})")
+        dot.node("hidden1", f"Hidden Layer 1\n({self.hidden_size})\nReLU")
+        dot.node("hidden2", f"Hidden Layer 2\n({self.hidden_size})\nReLU")
+        dot.node("output", f"Output\n({self.output_size})\nSoftmax")
+        
+        # Connect layers with edges indicating parameters
+        dot.edge("input", "hidden1", label="W1, b1")
+        dot.edge("hidden1", "hidden2", label="W2, b2")
+        dot.edge("hidden2", "output", label="W3, b3")
+        
+        # Render the graph to a file
+        dot.render(filename, format=format, cleanup=True)
+        
+        # Optionally display inline (if in a notebook)
+        if show_inline:
+            display(Image(dot.pipe(format=format)))
+
+
+            
