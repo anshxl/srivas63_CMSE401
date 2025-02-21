@@ -5,6 +5,8 @@
 #Use Adam optimizer
 import numpy as np
 from adam import AdamOptimizer
+import time
+from tqdm import tqdm  # or from tqdm.notebook import tqdm if in a notebook
 
 class NeuralNetwork:
 
@@ -21,7 +23,7 @@ class NeuralNetwork:
         self.b2 = np.zeros((1, hidden_size))
         self.W3 = np.random.randn(hidden_size, output_size) * 0.01
         self.b3 = np.zeros((1, output_size))
-    
+
     def relu(self, x):
         return np.maximum(0, x)
     
@@ -58,18 +60,24 @@ class NeuralNetwork:
         self.init_params(X.shape[1], hidden_size, output_size)
         parameters = [self.W1, self.b1, self.W2, self.b2, self.W3, self.b3]
         adam = AdamOptimizer(parameters, learning_rate=learning_rate)
-        for i in range(epochs):
-            y_hat = self.forward_propagation(X)
-            loss = self.cross_entropy_loss(y, y_hat)
+        
+        start_time = time.time()
+        with tqdm(range(epochs), desc="Training", unit="epoch") as pbar:
+            for i in pbar:
+                y_hat = self.forward_propagation(X)
+                loss = self.cross_entropy_loss(y, y_hat)
+                
+                # Compute gradients and update weights
+                gradients = self.compute_gradients(X, y)
+                adam.update(gradients)
+                self.W1, self.b1, self.W2, self.b2, self.W3, self.b3 = adam.parameters
+                
+                # Update the progress bar with the current loss
+                pbar.set_postfix(loss=f'{loss:.4f}')
+        
+        total_time = time.time() - start_time
+        print(f"Total training time: {total_time:.2f} seconds")
 
-            # Compute gradients
-            grads = self.compute_gradients(X, y)
-
-            # Update parameters
-            parameters = adam.update(grads)
-            self.W1, self.b1, self.W2, self.b2, self.W3, self.b3 = parameters
-
-            print('Epoch: {0}, Loss: {1}'.format(i, loss))
         
     def predict(self, X):
         return np.argmax(self.forward_propagation(X), axis=1)
