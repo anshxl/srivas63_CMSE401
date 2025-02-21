@@ -16,12 +16,15 @@ class NeuralNetwork:
         self.output_size = output_size
         self.init_params(input_size, hidden_size, output_size)
 
+    def He_initialization(self, input_size, hidden_size):
+        return np.random.randn(input_size, hidden_size) * np.sqrt(2/input_size)
+    
     def init_params(self, input_size, hidden_size, output_size):
-        self.W1 = np.random.randn(input_size, hidden_size) * 0.01
+        self.W1 = self.He_initialization(input_size, hidden_size)
         self.b1 = np.zeros((1, hidden_size))
-        self.W2 = np.random.randn(hidden_size, hidden_size) * 0.01
+        self.W2 = self.He_initialization(hidden_size, hidden_size)
         self.b2 = np.zeros((1, hidden_size))
-        self.W3 = np.random.randn(hidden_size, output_size) * 0.01
+        self.W3 = self.He_initialization(hidden_size, output_size)
         self.b3 = np.zeros((1, output_size))
 
     def relu(self, x):
@@ -60,13 +63,17 @@ class NeuralNetwork:
         # self.init_params(X.shape[1], hidden_size, output_size)
         parameters = [self.W1, self.b1, self.W2, self.b2, self.W3, self.b3]
         adam = AdamOptimizer(parameters, learning_rate=learning_rate)
+
+        #Initialize list to store loss values
+        self.loss_values = []
         
         start_time = time.time()
         with tqdm(range(epochs), desc="Training", unit="epoch") as pbar:
             for i in pbar:
                 y_hat = self.forward_propagation(X)
                 loss = self.cross_entropy_loss(y, y_hat)
-                
+                self.loss_values.append(loss)
+
                 # Compute gradients and update weights
                 gradients = self.compute_gradients(X, y)
                 adam.update(gradients)
@@ -101,6 +108,24 @@ class NeuralNetwork:
     def __len__(self):
         return self.hidden
     
+    def plot_loss(self, filename="loss_plot", format="png", show_inline=False, save=True):
+        try:
+            import matplotlib.pyplot as plt
+            from IPython.display import Image, display
+        except ImportError as e:
+            raise ImportError("matplotlib and IPython are required. Install with 'pip install matplotlib ipython'.")
+        
+        plt.figure(figsize=(10, 6))
+        plt.plot(self.loss_values)
+        #plt.scatter(range(len(self.loss_values)), self.loss_values, color='r')
+        plt.title("Loss over epochs")
+        plt.xlabel("Epoch")
+        plt.ylabel("Cross-entropy loss")
+        plt.grid(True, alpha=0.5)
+        plt.tight_layout()
+        if save:
+            plt.savefig(f"plots/{filename}.{format}", format=format)
+            
     def plot_architecture(self, filename="model_architecture", format="png", show_inline=False):
         """
         Plots the model architecture and saves it to a file.
