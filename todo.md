@@ -3,7 +3,7 @@
 ## Phase 1: Environment & Repository Setup
 - [X] **Repository Structure**
   - [X] Create project folder (`mlp_numba_project`)
-  - [X] Create files: `main.py`, `model.py`, `optimizer.py`, `data_loader.py`, `benchmark.py`, `utils.py`, `README.md`
+  - [X] Create files: `main.py`, `model.py`, `optimizer.py`, `data_loader.py`, `benchmark.py`, `utils.py`, `low_level_ops.py`, `README.md`
   - [X] Create directories: `/experiments`, `/results`
 - [X] **Environment Setup**
   - [X] Set up a Python virtual environment (Python 3.8+)
@@ -24,7 +24,7 @@
   - [X] Create tests to confirm correct normalization and one-hot encoding
 
 ## Phase 3: Core MLP Model Development
-- [x] **MLP Class Skeleton**
+- [X] **MLP Class Skeleton**
   - [X] Define an MLP class in `model.py`
 - [X] **Model Architecture Implementation**
   - [X] Input Layer: Shape `(Batch, 784)`
@@ -39,23 +39,23 @@
 - [X] **Initial Testing**
   - [X] Compare outputs and gradients against a baseline NumPy implementation
 
-## Phase 4: Numba-Based Optimization
-- [ ] **Refactoring Forward Propagation**
-  - [ ] Decorate critical functions with `@njit(parallel=True)`
-  - [ ] Replace Python loops with `numba.prange` where applicable
-- [ ] **Refactoring Backward Propagation**
-  - [ ] Apply similar Numba optimizations to gradient calculations
-- [ ] **Validation**
-  - [ ] Verify numerical accuracy of optimized functions against the baseline
+## Phase 4: Numba-Based Optimization & Low-Level Ops
+- [ ] **Refactor Critical Functions in low_level_ops.py**
+  - [ ] Implement custom versions of key NumPy functions (e.g., dot, sum, mean, zeros) using explicit Python loops.
+  - [ ] Decorate these functions with `@njit(parallel=True)` to accelerate them.
+- [ ] **Integrate Low-Level Ops in the MLP Model**
+  - [ ] Refactor forward propagation and gradient computation in `model.py` to optionally use the low-level functions.
+  - [ ] Validate that the custom operations produce equivalent results to the NumPy versions.
 - [ ] **Benchmarking**
-  - [ ] Measure performance improvements over the pure NumPy version
+  - [ ] Measure performance improvements of the low-level Numba-accelerated functions vs. the original NumPy implementations.
+  - [ ] Update benchmarking scripts in `benchmark.py`.
 
 ## Phase 5: Optimizer Integration (Adam & SGD)
 - [X] **Optimizer Interface**
   - [X] Define a common interface for optimizers in `optimizer.py`
 - [X] **Adam Optimizer**
   - [X] Implement Adam update rules with appropriate hyperparameters
-- [X] **SGD Optimizer** (Not required anymore)
+- [X] **SGD Optimizer** (Fallback)
   - [X] Implement a fallback SGD optimizer
 - [X] **Integration**
   - [X] Integrate optimizer functionality into the MLP class
@@ -112,4 +112,3 @@
 - [ ] All unit and integration tests pass
 - [ ] Benchmark results documented and meet performance goals
 - [ ] Project documentation is complete and up-to-date
-
