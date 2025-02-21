@@ -56,8 +56,8 @@ class NeuralNetwork:
         db1 = np.sum(dz1, axis=0, keepdims=True) / m
         return [dW1, db1, dW2, db2, dW3, db3]
 
-    def train(self, X, y, hidden_size, output_size, learning_rate, epochs):
-        self.init_params(X.shape[1], hidden_size, output_size)
+    def train(self, X, y, learning_rate, epochs):
+        # self.init_params(X.shape[1], hidden_size, output_size)
         parameters = [self.W1, self.b1, self.W2, self.b2, self.W3, self.b3]
         adam = AdamOptimizer(parameters, learning_rate=learning_rate)
         
