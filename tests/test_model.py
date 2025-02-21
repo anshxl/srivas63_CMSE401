@@ -76,7 +76,7 @@ class TestNeuralNetwork(unittest.TestCase):
 
     def test_evaluate(self):
         # Train the network briefly and then evaluate on the training set.
-        self.nn.train(self.X, self.y, self.hidden_size, self.output_size, learning_rate=0.01, epochs=5)
+        self.nn.train(self.X, self.y, learning_rate=0.01, epochs=5)
         accuracy = self.nn.evaluate(self.X, self.y)
         # Accuracy should be a percentage between 0 and 100.
         self.assertTrue(0 <= accuracy <= 100)
@@ -87,7 +87,7 @@ class TestNeuralNetwork(unittest.TestCase):
                          self.nn.W2.copy(), self.nn.b2.copy(), 
                          self.nn.W3.copy(), self.nn.b3.copy()]
         
-        self.nn.train(self.X, self.y, self.hidden_size, self.output_size, learning_rate=0.01, epochs=1)
+        self.nn.train(self.X, self.y, learning_rate=0.01, epochs=1)
         params_after = [self.nn.W1, self.nn.b1, self.nn.W2, self.nn.b2, self.nn.W3, self.nn.b3]
         
         for before, after in zip(params_before, params_after):
@@ -96,7 +96,7 @@ class TestNeuralNetwork(unittest.TestCase):
 
     def test_save_and_load_model(self):
         # Train the network briefly, then save the model.
-        self.nn.train(self.X, self.y, self.hidden_size, self.output_size, learning_rate=0.01, epochs=1)
+        self.nn.train(self.X, self.y, learning_rate=0.01, epochs=1)
         temp_file = "temp_model.npy"
         self.nn.save_model(temp_file)
         
