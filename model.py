@@ -5,7 +5,10 @@ import time
 random.seed(42)
 
 #Import Linear Algebra class
-from LinearAlgebra import LinearAlegbra as la
+from LinearAlgebra import LinAlg as la
+la = la()
+#Import Adam Optimizer
+from numba_adam import AdamOptimizer
 
 class NeuralNetwork:
 
@@ -113,6 +116,8 @@ class NeuralNetwork:
     def train(self, X_train, y_train, epochs, learning_rate):
         self.loss_values = []
         start_time = time.time()
+        params = [self.W1, self.b1, self.W2, self.b2, self.W3, self.b3]
+        optimizer = AdamOptimizer(params, learning_rate)
         with tqdm(range(epochs), desc='Training', unit='epoch') as pbar:
             for epoch in pbar:
                 total_loss = 0
@@ -122,7 +127,10 @@ class NeuralNetwork:
                 self.loss_values.append(total_loss)
 
                 gradients = self.compute_gradients(X_train, y_train)
-                self.update_params(gradients, learning_rate)
+                # self.update_params(gradients, learning_rate)
+                optimizer.update(gradients)
+                self.W1, self.b1, self.W2, self.b2, self.W3, self.b3 = optimizer.parameters
+        
                 pbar.set_postfix({'loss': self.loss_values[-1]})
         
         end_time = time.time()
@@ -148,3 +156,4 @@ class NeuralNetwork:
     
     def check_params(self):
         return self.params
+    
