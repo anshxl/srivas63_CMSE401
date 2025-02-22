@@ -100,6 +100,13 @@ def test_subtract_matrices():
     expected = [[9, 18, 27], [36, 45, 54]]
     assert result == expected, f"subtract_matrices failed: {result} != {expected}"
 
+def test_transpose():
+    la = LinearAlegbra()
+    A = [[1, 2, 3], [4, 5, 6]]
+    result = la.transpose(A)
+    expected = [[1, 4], [2, 5], [3, 6]]
+    assert result == expected, f"transpose failed: {result} != {expected}"
+
 def run_all_tests():
     test_zeros_like()
     test_add_vectors()
@@ -114,6 +121,7 @@ def run_all_tests():
     test_matrix_mask()
     test_subtract_vectors()
     test_subtract_matrices()
+    test_transpose()
     print("All LinearAlegbra tests passed.")
 
 if __name__ == "__main__":
