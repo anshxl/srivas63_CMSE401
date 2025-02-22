@@ -5,52 +5,52 @@ import sys
 # Add the project root directory to sys.path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from LinearAlgebra import LinearAlegbra
+from LinearAlgebra import LinAlg
 
 def test_zeros_like():
-    la = LinearAlegbra()
+    la = LinAlg()
     assert la.zeros_like([1, 2, 3]) == [0, 0, 0], "zeros_like for list failed"
     assert la.zeros_like(5) == 0.0, "zeros_like for scalar failed"
 
 def test_add_vectors():
-    la = LinearAlegbra()
+    la = LinAlg()
     assert la.add_vectors([1, 2, 3], [4, 5, 6]) == [5, 7, 9], "add_vectors for lists failed"
     assert la.add_vectors(3, 4) == 7, "add_vectors for scalars failed"
 
 def test_subtract_vectors():
-    la = LinearAlegbra()
+    la = LinAlg()
     assert la.subtract_vectors([5, 7, 9], [1, 2, 3]) == [4, 5, 6], "subtract_vectors for lists failed"
     assert la.subtract_vectors(10, 3) == 7, "subtract_vectors for scalars failed"
 
 def test_scalar_multiply():
-    la = LinearAlegbra()
+    la = LinAlg()
     assert la.scalar_multiply(2, [1, 2, 3]) == [2, 4, 6], "scalar_multiply for lists failed"
     assert la.scalar_multiply(3, 4) == 12, "scalar_multiply for scalars failed"
 
 def test_elementwise_multiply():
-    la = LinearAlegbra()
+    la = LinAlg()
     assert la.elementwise_multiply([1, 2, 3], [4, 5, 6]) == [4, 10, 18], "elementwise_multiply for lists failed"
     assert la.elementwise_multiply(3, 4) == 12, "elementwise_multiply for scalars failed"
 
 def test_elementwise_divide():
-    la = LinearAlegbra()
+    la = LinAlg()
     assert la.elementwise_divide([10, 20, 30], [2, 5, 3]) == [5, 4, 10], "elementwise_divide for lists failed"
     assert la.elementwise_divide(10, 2) == 5, "elementwise_divide for scalars failed"
 
 def test_square():
-    la = LinearAlegbra()
+    la = LinAlg()
     assert la.square([2, 3, 4]) == [4, 9, 16], "square for lists failed"
     assert la.square(5) == 25, "square for scalars failed"
 
 def test_sqrt():
-    la = LinearAlegbra()
+    la = LinAlg()
     # Allow small rounding differences
     sqrt_list = la.sqrt([4, 9, 16])
     assert all(abs(a - b) < 1e-6 for a, b in zip(sqrt_list, [2, 3, 4])), "sqrt for lists failed"
     assert abs(la.sqrt(16) - 4) < 1e-6, "sqrt for scalars failed"
 
 def test_dot():
-    la = LinearAlegbra()
+    la = LinAlg()
     # Test with 2x2 matrices.
     x = [[1, 2], [3, 4]]
     y = [[5, 6], [7, 8]]
@@ -60,7 +60,7 @@ def test_dot():
     assert result == expected, f"dot product failed: {result} != {expected}"
 
 def test_sum_axis0():
-    la = LinearAlegbra()
+    la = LinAlg()
     # Test with a 2D list.
     matrix = [[1, 2, 3], [4, 5, 6]]
     result = la.sum_axis0(matrix)
@@ -74,7 +74,7 @@ def test_sum_axis0():
     assert result == expected, f"sum_axis0 for 1D list failed: {result} != {expected}"
 
 def test_matrix_mask():
-    la = LinearAlegbra()
+    la = LinAlg()
     matrix = [[-1, 2, -3], [4, -5, 6]]
     # Condition: value > 0
     result = la.matrix_mask(matrix, lambda x: x > 0)
@@ -82,7 +82,7 @@ def test_matrix_mask():
     assert result == expected, f"matrix_mask failed: {result} != {expected}"
 
 def test_subtract_vectors():
-    la = LinearAlegbra()
+    la = LinAlg()
     v1 = [10, 20, 30]
     v2 = [1, 2, 3]
     result = la.subtract_vectors(v1, v2)
@@ -90,7 +90,7 @@ def test_subtract_vectors():
     assert result == expected, f"subtract_vectors failed: {result} != {expected}"
 
 def test_subtract_matrices():
-    la = LinearAlegbra()
+    la = LinAlg()
     A = [[10, 20, 30], [40, 50, 60]]
     B = [[1, 2, 3], [4, 5, 6]]
     # Assume subtract_matrices is implemented as:
@@ -101,7 +101,7 @@ def test_subtract_matrices():
     assert result == expected, f"subtract_matrices failed: {result} != {expected}"
 
 def test_transpose():
-    la = LinearAlegbra()
+    la = LinAlg()
     A = [[1, 2, 3], [4, 5, 6]]
     result = la.transpose(A)
     expected = [[1, 4], [2, 5], [3, 6]]

@@ -1,6 +1,6 @@
 import math
 
-class LinearAlegbra:
+class LinAlg:
 
     def __init__(self):
         pass
@@ -12,38 +12,37 @@ class LinearAlegbra:
             return 0.0
     
     def add_vectors(self, x, y):
-        if isinstance(x, list):
+        # Expect x and y to be 1D lists (vectors) or scalars.
+        if isinstance(x, list) and isinstance(y, list):
             return [x_i + y_i for x_i, y_i in zip(x, y)]
         else:
             return x + y
     
     def subtract_vectors(self, x, y):
-        if isinstance(x, list):
+        if isinstance(x, list) and isinstance(y, list):
             return [x_i - y_i for x_i, y_i in zip(x, y)]
         else:
             return x - y
 
     def add_matrices(self, x, y):
-        # If y is a vector (1D list), replicate it to match the number of rows in x.
-        if not x:
-            return []
+        # If both x and y are 1D lists (vectors), simply add them elementwise.
+        if not isinstance(x[0], list) and not isinstance(y[0], list):
+            return self.add_vectors(x, y)
+        # If x is a matrix (list of lists) but y is a vector, replicate y for each row of x.
         if not isinstance(y[0], list):
-            # y is a vector; create a matrix where each row is y.
-            y_matrix = [y for _ in range(len(x))]
+            y_matrix = [y[:] for _ in range(len(x))]
             return [self.add_vectors(x_i, y_i) for x_i, y_i in zip(x, y_matrix)]
-        else:
-            return [self.add_vectors(x_i, y_i) for x_i, y_i in zip(x, y)]
+        # Otherwise, assume both are matrices.
+        return [self.add_vectors(x_i, y_i) for x_i, y_i in zip(x, y)]
         
     def subtract_matrices(self, x, y):
-        # If y is a vector (1D list), replicate it to match the number of rows in x.
-        if not x:
-            return []
+        # Similar to add_matrices, handle vectors separately.
+        if not isinstance(x[0], list) and not isinstance(y[0], list):
+            return self.subtract_vectors(x, y)
         if not isinstance(y[0], list):
-            # y is a vector; create a matrix where each row is y.
-            y_matrix = [y for _ in range(len(x))]
+            y_matrix = [y[:] for _ in range(len(x))]
             return [self.subtract_vectors(x_i, y_i) for x_i, y_i in zip(x, y_matrix)]
-        else:
-            return [self.subtract_vectors(x_i, y_i) for x_i, y_i in zip(x, y)]
+        return [self.subtract_vectors(x_i, y_i) for x_i, y_i in zip(x, y)]
     
     def scalar_multiply(self, c, x):
         if isinstance(x, list):
