@@ -84,7 +84,6 @@ class NeuralNetwork:
         
         total_time = time.time() - start_time
         print(f"Total training time: {total_time:.2f} seconds")
-
         
     def predict(self, X):
         return np.argmax(self.forward_propagation(X), axis=1)
