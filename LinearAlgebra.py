@@ -23,14 +23,33 @@ class LinearAlegbra:
         else:
             return x - y
 
+    def add_matrices(self, x, y):
+        # If y is a vector (1D list), replicate it to match the number of rows in x.
+        if not x:
+            return []
+        if not isinstance(y[0], list):
+            # y is a vector; create a matrix where each row is y.
+            y_matrix = [y for _ in range(len(x))]
+            return [self.add_vectors(x_i, y_i) for x_i, y_i in zip(x, y_matrix)]
+        else:
+            return [self.add_vectors(x_i, y_i) for x_i, y_i in zip(x, y)]
+        
     def subtract_matrices(self, x, y):
-        return [self.subtract_vectors(x_i, y_i) for x_i, y_i in zip(x, y)]
+        # If y is a vector (1D list), replicate it to match the number of rows in x.
+        if not x:
+            return []
+        if not isinstance(y[0], list):
+            # y is a vector; create a matrix where each row is y.
+            y_matrix = [y for _ in range(len(x))]
+            return [self.subtract_vectors(x_i, y_i) for x_i, y_i in zip(x, y_matrix)]
+        else:
+            return [self.subtract_vectors(x_i, y_i) for x_i, y_i in zip(x, y)]
     
     def scalar_multiply(self, c, x):
         if isinstance(x, list):
-            return [c*x_i for x_i in x]
+            return [self.scalar_multiply(c, elem) for elem in x]
         else:
-            return c*x
+            return c * x
     
     def elementwise_multiply(self, x, y):
         if isinstance(x, list):
@@ -86,3 +105,12 @@ class LinearAlegbra:
     
     def matrix_mask(self, x, condition_func):
         return [[1 if condition_func(x) else 0 for x in row] for row in x]
+    
+    def transpose(self, matrix):
+        return [list(row) for row in zip(*matrix)]
+
+    def add_epsilon(self, x, epsilon):
+        if isinstance(x, list):
+            return [x_i + epsilon for x_i in x]
+        else:
+            return x + epsilon
