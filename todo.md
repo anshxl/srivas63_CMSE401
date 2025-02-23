@@ -1,13 +1,13 @@
-# TODO Checklist: Optimized MLP with Numba
+# TODO Checklist: Optimized MLP with GPU Acceleration
 
 ## Phase 1: Environment & Repository Setup
 - [X] **Repository Structure**
-  - [X] Create project folder (`mlp_numba_project`)
-  - [X] Create files: `main.py`, `model.py`, `optimizer.py`, `data_loader.py`, `benchmark.py`, `utils.py`, `low_level_ops.py`, `README.md`
+  - [X] Create project folder (`mlp_gpu_project`)
+  - [X] Create files: `main.py`, `model.py`, `optimizer.py`, `data_loader.py`, `benchmark.py`, `utils.py`, `low_level_ops.py`, `gpu_ops.py`, `README.md`
   - [X] Create directories: `/experiments`, `/results`
 - [X] **Environment Setup**
   - [X] Set up a Python virtual environment (Python 3.8+)
-  - [X] Install required libraries: `numpy`, `numba`, `scipy` (if needed), `matplotlib`, and timing utilities (`time` or `timeit`)
+  - [X] Install required libraries: `numpy`, `numba`, `cupy`, `scipy` (if needed), `matplotlib`, and timing utilities (`time` or `timeit`)
 - [X] **Version Control**
   - [X] Initialize a Git repository
   - [X] Document setup steps in `README.md`
@@ -28,29 +28,32 @@
   - [X] Define an MLP class in `model.py`
 - [X] **Model Architecture Implementation**
   - [X] Input Layer: Shape `(Batch, 784)`
-  - [X] Hidden Layer 1: Shape `(784, 128)` with ReLU
-  - [X] Hidden Layer 2: Shape `(128, 128)` with ReLU
-  - [X] Hidden Layer 3: Shape `(128, 128)` with ReLU
-  - [X] Output Layer: Shape `(128, 10)` with Softmax
+  - [X] Hidden Layers & Output Layer with respective activations (ReLU, Softmax)
 - [X] **Forward Propagation**
-  - [X] Implement forward pass for each layer (matrix multiplications, activations)
+  - [X] Implement forward pass for each layer (using NumPy)
 - [X] **Backward Propagation**
   - [X] Implement gradient computation for each layer
 - [X] **Initial Testing**
-  - [X] Compare outputs and gradients against a baseline NumPy implementation
+  - [X] Compare outputs and gradients against expected results
 
-## Phase 4: Numba-Based Optimization & Low-Level Ops
-- [ ] **Refactor Critical Functions in low_level_ops.py**
-  - [ ] Implement custom versions of key NumPy functions (e.g., dot, sum, mean, zeros) using explicit Python loops.
-  - [ ] Decorate these functions with `@njit(parallel=True)` to accelerate them.
-- [ ] **Integrate Low-Level Ops in the MLP Model**
-  - [ ] Refactor forward propagation and gradient computation in `model.py` to optionally use the low-level functions.
-  - [ ] Validate that the custom operations produce equivalent results to the NumPy versions.
+## Phase 4: CPU-based Optimization Experiments (Failed Approaches)
+- [X] **Refactor Critical Functions in low_level_ops.py**
+  - [X] Implement custom versions of key NumPy functions (e.g., dot, sum, mean, zeros) using explicit Python loops.
+  - [X] Decorate these functions with `@njit(parallel=True)` to accelerate them.
+- [X] **Integrate Low-Level Ops in the MLP Model**
+  - [X] Optionally refactor forward and gradient computations to use these low-level functions.
+  - [ ] Benchmark and document that these approaches did not outperform the vectorized NumPy baseline.
+
+## Phase 5: GPU Acceleration Implementation with CuPy
+- [ ] **GPU Operations Module**
+  - [ ] Create `gpu_ops.py` with GPU-accelerated equivalents for critical operations (e.g., matrix multiplication, activation functions).
+- [ ] **Integrate CuPy into the MLP Model**
+  - [ ] Modify the MLP class (or create a subclass) to use CuPy arrays and operations for forward propagation and weight updates.
 - [ ] **Benchmarking**
-  - [ ] Measure performance improvements of the low-level Numba-accelerated functions vs. the original NumPy implementations.
+  - [ ] Measure performance improvements of the GPU version against both the baseline NumPy and the CPU-based Numba versions.
   - [ ] Update benchmarking scripts in `benchmark.py`.
 
-## Phase 5: Optimizer Integration (Adam & SGD)
+## Phase 6: Optimizer Integration (Adam & SGD)
 - [X] **Optimizer Interface**
   - [X] Define a common interface for optimizers in `optimizer.py`
 - [X] **Adam Optimizer**
@@ -62,30 +65,28 @@
 - [X] **Testing**
   - [X] Write unit tests to verify correct weight updates
 
-## Phase 6: Training Loop & Benchmarking
+## Phase 7: Training Loop & Benchmarking
 - [X] **Training Loop**
   - [X] Implement the overall training loop in `main.py`
   - [X] Integrate data loading, forward pass, loss calculation, backward pass, and optimizer updates
 - [ ] **Batch Processing**
-  - [ ] Implement batch handling and experiment with sizes (32, 64, 128, etc.)
+  - [ ] Implement and experiment with batch handling and various sizes
 - [ ] **Metric Logging**
-  - [ ] Log training metrics: loss, accuracy, iteration execution time
+  - [ ] Log training metrics: loss, accuracy, execution time per iteration
 - [ ] **Benchmarking Scripts**
-  - [ ] Develop scripts in `benchmark.py` to compare NumPy vs. Numba performance
+  - [ ] Develop scripts in `benchmark.py` to compare NumPy vs. Numba vs. CuPy performance
 
-## Phase 7: Testing, Debugging, & Validation
+## Phase 8: Testing, Debugging, & Validation
 - [ ] **Unit Tests**
-  - [ ] Write tests for each activation function (ReLU, Softmax)
-  - [ ] Validate forward propagation outputs
-  - [ ] Validate backward propagation gradient computations
-  - [ ] Test weight update routines
+  - [ ] Write tests for activation functions (ReLU, Softmax) for both CPU and GPU versions
+  - [ ] Validate forward propagation outputs and gradients
+  - [ ] Test optimizer weight updates
 - [ ] **Debugging**
-  - [ ] Use `numba.verbose=True` for diagnosing parallelism issues
-  - [ ] Address numerical stability issues (e.g., implement log-softmax if needed)
+  - [ ] Use `numba.verbose=True` for diagnosing CPU parallelism issues and appropriate logging for CuPy
 - [ ] **Integration Testing**
   - [ ] Run complete training loop tests to ensure expected behavior
 
-## Phase 8: Documentation & Deployment
+## Phase 9: Documentation & Deployment
 - [ ] **Documentation**
   - [ ] Update `README.md` with project overview, setup instructions, and usage guidelines
   - [ ] Add inline code documentation (docstrings) across all modules
@@ -94,21 +95,18 @@
 - [ ] **Packaging**
   - [ ] Prepare the project for deployment or sharing
 
-## Phase 9: Stretch Goals (Advanced Optimization)
-- [ ] **GPU Acceleration Exploration**
-  - [ ] Research and prototype GPU acceleration using `@cuda.jit`
-  - [ ] Identify code sections (e.g., matrix multiplications) for GPU optimization
-- [ ] **Performance Comparison**
-  - [ ] Benchmark GPU-accelerated version against the CPU (Numba) version
-- [ ] **Threading & Fast Math**
-  - [ ] Experiment with Numba’s threading models (e.g., `fastmath=True`)
-- [ ] **Documentation of Findings**
-  - [ ] Document performance comparisons and trade-offs
+## Phase 10: Stretch Goals (Advanced Optimization & Analysis)
+- [ ] **Additional GPU Optimizations**
+  - [ ] Explore using raw CuPy kernels or Numba’s `@cuda.jit` for further acceleration.
+- [ ] **Hybrid CPU-GPU Models**
+  - [ ] Investigate strategies for concurrent CPU and GPU utilization.
+- [ ] **Performance Documentation**
+  - [ ] Document and analyze all performance benchmarks and trade-offs across different implementations.
 
 ---
 
 # Final Checklist
-- [ ] Each phase has been completed and tested
-- [ ] All unit and integration tests pass
-- [ ] Benchmark results documented and meet performance goals
-- [ ] Project documentation is complete and up-to-date
+- [ ] All phases have been completed and tested.
+- [ ] Unit and integration tests pass across all implementations.
+- [ ] Benchmark results are documented and meet performance expectations.
+- [ ] Project documentation is complete and up-to-date.
