@@ -55,3 +55,8 @@ The script will execute both versions of the loop and print out the result along
 ## Conclusion
 
 This example provides a quick and practical demonstration of how Numba can accelerate numerical computations in Python. The instructions and code provided here are intended to help future users—such as classmates or fellow researchers—install the software on the HPCC and understand how to leverage Numba for performance-critical tasks.
+
+## References
+
+* An example using 1D wave propagation from HW1, sped up using Numba.
+* Installation instructions referenced from ICER's guide to using the HPCC: ICER HPCC Guide
