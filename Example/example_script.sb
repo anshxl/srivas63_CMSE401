@@ -1,0 +1,8 @@
+#!/bin/bash
+#SBATCH -N 1
+#SBATCH -c 1
+#SBATCH --mem=1Gb
+#SBATCH --job-name=numba_example
+#SBATCH -o example.out
+
+python example.py
