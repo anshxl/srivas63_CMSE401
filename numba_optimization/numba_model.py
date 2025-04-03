@@ -3,7 +3,7 @@ from numba import njit #type: ignore
 import sys
 import os
 import time
-from tqdm import tqdm  # or from tqdm.notebook import tqdm if in a notebook
+from tqdm import tqdm  # type: ignore
 
 # Add the project root directory to sys.path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -131,8 +131,8 @@ class NeuralNetwork:
     
     def plot_loss(self, filename="loss_plot", format="png", show_inline=False, save=True):
         try:
-            import matplotlib.pyplot as plt
-            from IPython.display import Image, display
+            import matplotlib.pyplot as plt # type: ignore
+            from IPython.display import Image, display # type: ignore
         except ImportError as e:
             raise ImportError("matplotlib and IPython are required. Install with 'pip install matplotlib ipython'.")
         
