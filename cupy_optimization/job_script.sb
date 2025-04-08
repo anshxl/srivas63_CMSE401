@@ -16,5 +16,5 @@ conda activate project1
 srun python training_cupy.py
 
 # Print resource information
-scontrol show job $SLURM_JOB_ID
-js -j $SLURM_JOB_ID
+#scontrol show job $SLURM_JOB_ID
+#js -j $SLURM_JOB_ID
