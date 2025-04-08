@@ -1,0 +1,18 @@
+This script runs and compares all three MLP implementations
+Configured maximum threads: 40
+
+Benchmarking Baseline Model...
+Baseline Model:   0%|          | 0/5 [00:00<?, ?it/s]Baseline Model:  20%|██        | 1/5 [00:37<02:29, 37.37s/it]Baseline Model:  40%|████      | 2/5 [01:14<01:51, 37.33s/it]Baseline Model:  60%|██████    | 3/5 [01:51<01:14, 37.30s/it]Baseline Model:  80%|████████  | 4/5 [02:29<00:37, 37.28s/it]Baseline Model: 100%|██████████| 5/5 [03:06<00:00, 37.26s/it]Baseline Model: 100%|██████████| 5/5 [03:06<00:00, 37.28s/it]
+Average training time (Baseline): 37.22 seconds
+Average test accuracy (Baseline): 91.35%
+
+Benchmarking Numba Model...
+Numba Model:   0%|          | 0/5 [00:00<?, ?it/s]Numba Model:  20%|██        | 1/5 [00:44<02:57, 44.45s/it]Numba Model:  40%|████      | 2/5 [01:26<02:08, 42.98s/it]Numba Model:  60%|██████    | 3/5 [02:08<01:24, 42.46s/it]Numba Model:  80%|████████  | 4/5 [02:50<00:42, 42.18s/it]Numba Model: 100%|██████████| 5/5 [03:31<00:00, 42.04s/it]Numba Model: 100%|██████████| 5/5 [03:31<00:00, 42.35s/it]
+Average training time (Numba): 41.74 seconds
+Average test accuracy (Numba): 91.43%
+
+Benchmarking GPU Model...
+GPU Model:   0%|          | 0/5 [00:00<?, ?it/s]GPU Model:  20%|██        | 1/5 [00:00<00:02,  1.58it/s]GPU Model:  40%|████      | 2/5 [00:01<00:01,  2.04it/s]GPU Model:  60%|██████    | 3/5 [00:01<00:00,  2.25it/s]GPU Model:  80%|████████  | 4/5 [00:01<00:00,  2.36it/s]GPU Model: 100%|██████████| 5/5 [00:02<00:00,  2.42it/s]GPU Model: 100%|██████████| 5/5 [00:02<00:00,  2.27it/s]
+Average training time (GPU): 0.35 seconds
+Average test accuracy (GPU): 91.44%
+
