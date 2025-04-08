@@ -2,7 +2,7 @@
 # Neural Network implemented using CuPy
 import cupy as cp #type: ignore[import]
 from tqdm import tqdm #type: ignore[import]
-from gpu_adam import GPUAdamOptimizer  # Import the GPU Adam optimizer
+from cupy_optimization.gpu_adam import GPUAdamOptimizer  # Import the GPU Adam optimizer
 
 class GPUNeuralNetwork:
     def __init__(self, input_size, hidden_size, output_size):
