@@ -21,7 +21,7 @@ nn.warmup()
 # Train the model and time the training process
 import time
 start_time = time.time()
-nn.train(X_train, y_train, learning_rate=0.001, epochs=40)
+nn.train(X_train, y_train, learning_rate=0.001, epochs=10)
 end_time = time.time()
 
 # Print the training time
