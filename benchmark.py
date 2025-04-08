@@ -106,20 +106,14 @@ def benchmark_gpu():
 
         # Evaluate the model
         accuracy = gpu_model.evaluate(X_test_gpu, y_test_gpu)
-        accuracies.append(accuracy)
+        accuracies.append(accuracy.get())
 
     # Print the average training time
     avg_runtime = np.mean(runtimes)
     print(f"Average training time (GPU): {avg_runtime:.2f} seconds")
 
-    # Convert accuracies to NumPy from CuPy for averaging
-    try:
-        accuracies = cp.asnumpy(accuracies)
-        avg_accuracy = np.mean(accuracies)
-    except Exception as e:
-        print("Error converting accuracies to NumPy:", e)
-        print("Averaging accuracies using CuPy.")
-        avg_accuracy = cp.mean(accuracies)
+    # Print the average accuracy
+    avg_accuracy = np.mean(accuracies)
     print(f"Average test accuracy (GPU): {avg_accuracy:.2f}%\n")
 
 if __name__ == "__main__":
