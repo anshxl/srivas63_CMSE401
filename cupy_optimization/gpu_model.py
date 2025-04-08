@@ -86,3 +86,31 @@ class GPUNeuralNetwork:
         y_gpu = y if isinstance(y, cp.ndarray) else cp.asarray(y)
         y_pred = self.predict(X_gpu)
         return cp.mean(y_pred == cp.argmax(y_gpu, axis=1)) * 100
+    
+    def __repr__(self):
+        return f"NeuralNetwork(input_size={self.input_size}, hidden_size={self.hidden_size}, output_size={self.output_size})"
+    
+    def __str__(self):
+        return f"NeuralNetwork with {self.input_size} input nodes, {self.hidden_size} hidden nodes, and {self.output_size} output nodes"
+    
+    def __len__(self):
+        return self.hidden_size
+    
+    def plot_loss(self, filename="loss_plot", format="png", show_inline=False, save=True):
+        try:
+            import matplotlib.pyplot as plt # type: ignore
+            from IPython.display import Image, display # type: ignore
+        except ImportError as e:
+            raise ImportError("matplotlib and IPython are required. Install with 'pip install matplotlib ipython'.")
+        
+        plt.figure(figsize=(10, 6))
+        plt.plot(self.loss_values)
+        #plt.scatter(range(len(self.loss_values)), self.loss_values, color='r')
+        plt.title("Loss over epochs")
+        plt.xlabel("Epoch")
+        plt.ylabel("Cross-entropy loss")
+        plt.grid(True, alpha=0.5)
+        plt.tight_layout()
+        if save:
+            plt.savefig(f"plots/{filename}.{format}", format=format)
+    
