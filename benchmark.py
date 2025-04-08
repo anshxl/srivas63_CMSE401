@@ -30,11 +30,10 @@ def benchmark_baseline():
     print("Benchmarking Baseline Model...")
     baseline_model = BaselineNN(784, 128, 10)
     runtimes = []
-    for i in tqdm(range(10), desc="Baseline Model"):
-
+    for i in tqdm(range(5), desc="Baseline Model"):
         # Train the model and time the training process
         start_time = time.time()
-        baseline_model.train(X_train, y_train, learning_rate=0.001, epochs=40)
+        baseline_model.train(X_train, y_train, learning_rate=0.001, epochs=40, verbose=False)
         end_time = time.time()
 
         # Print the training time
@@ -54,14 +53,14 @@ def benchmark_numba():
     print("Benchmarking Numba Model...")
     numba_model = NumbaNN(784, 128, 10)
     runtimes = []
-    for i in tqdm(range(10), desc="Numba Model"):
+    for i in tqdm(range(5), desc="Numba Model"):
 
         # Warm up the Numba model
         print("Warming up...")
         numba_model.warmup()
         # Train the model and time the training process
         start_time = time.time()
-        numba_model.train(X_train, y_train, learning_rate=0.001, epochs=40)
+        numba_model.train(X_train, y_train, learning_rate=0.001, epochs=40, verbose=False)
         end_time = time.time()
 
         # Print the training time
@@ -81,11 +80,11 @@ def benchmark_gpu():
     print("Benchmarking GPU Model...")
     gpu_model = GPU_NN(X_train_gpu.shape[1], 128, y_train_gpu.shape[1])
     runtimes = []
-    for i in tqdm(range(10), desc="GPU Model"):
+    for i in tqdm(range(5), desc="GPU Model"):
 
         # Train the model and time the training process
         start_time = time.time()
-        gpu_model.train(X_train_gpu, y_train_gpu, learning_rate=0.001, epochs=40)
+        gpu_model.train(X_train_gpu, y_train_gpu, learning_rate=0.001, epochs=40, verbose=False)
         end_time = time.time()
 
         # Print the training time
