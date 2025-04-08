@@ -3,6 +3,11 @@
 
 import numpy as np
 import time
+import os
+
+# Suppress TensorFlow log messages
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # or '3' to hide warnings too
+
 from tqdm import tqdm  # type: ignore
 import cupy as cp #type: ignore[import]
 from numba import config #type: ignore[import]
@@ -28,9 +33,10 @@ y_test_gpu = cp.asarray(y_test)
 # Train and evaluate the Baseline model 10 times, and time each run
 def benchmark_baseline():
     print("Benchmarking Baseline Model...")
-    baseline_model = BaselineNN(784, 128, 10)
     runtimes = []
+    accuracies = []
     for i in tqdm(range(5), desc="Baseline Model"):
+        baseline_model = BaselineNN(784, 128, 10)
         # Train the model and time the training process
         start_time = time.time()
         baseline_model.train(X_train, y_train, learning_rate=0.001, epochs=40, verbose=False)
@@ -40,23 +46,27 @@ def benchmark_baseline():
         # print(f"Training time (Baseline): {end_time - start_time:.2f} seconds")
         runtimes.append(end_time - start_time)
 
+        # Evaluate the model
+        accuracy = baseline_model.evaluate(X_test, y_test)
+        accuracies.append(accuracy)
+
     # Print the average training time
     avg_runtime = np.mean(runtimes)
     print(f"Average training time (Baseline): {avg_runtime:.2f} seconds")
 
-    # Evaluate the model
-    accuracy = baseline_model.evaluate(X_test, y_test)
-    print(f"Test accuracy (Baseline): {accuracy:.2f}%")
+    # Print the average accuracy
+    avg_accuracy = np.mean(accuracies)
+    print(f"Average test accuracy (Baseline): {avg_accuracy:.2f}%\n")
+
 
 # Train and evaluate the Numba model 10 times, and time each run
 def benchmark_numba():
     print("Benchmarking Numba Model...")
-    numba_model = NumbaNN(784, 128, 10)
     runtimes = []
+    accuracies = []
     for i in tqdm(range(5), desc="Numba Model"):
-
+        numba_model = NumbaNN(784, 128, 10)
         # Warm up the Numba model
-        print("Warming up...")
         numba_model.warmup()
         # Train the model and time the training process
         start_time = time.time()
@@ -67,43 +77,53 @@ def benchmark_numba():
         # print(f"Training time (Numba): {end_time - start_time:.2f} seconds")
         runtimes.append(end_time - start_time)
 
+        # Evaluate the model
+        accuracy = numba_model.evaluate(X_test, y_test)
+        accuracies.append(accuracy)
+
     # Print the average training time
     avg_runtime = np.mean(runtimes)
     print(f"Average training time (Numba): {avg_runtime:.2f} seconds")
 
-    # Evaluate the model
-    accuracy = numba_model.evaluate(X_test, y_test)
-    print(f"Test accuracy (Numba): {accuracy:.2f}%")
+    # Print the average accuracy
+    avg_accuracy = np.mean(accuracies)
+    print(f"Average test accuracy (Numba): {avg_accuracy:.2f}%\n")
 
 # Train and evaluate the GPU model 10 times, and time each run
 def benchmark_gpu():
     print("Benchmarking GPU Model...")
-    gpu_model = GPU_NN(X_train_gpu.shape[1], 128, y_train_gpu.shape[1])
     runtimes = []
+    accuracies = []
     for i in tqdm(range(5), desc="GPU Model"):
-
+        gpu_model = GPU_NN(X_train_gpu.shape[1], 128, y_train_gpu.shape[1])
         # Train the model and time the training process
         start_time = time.time()
         gpu_model.train(X_train_gpu, y_train_gpu, learning_rate=0.001, epochs=40, verbose=False)
         end_time = time.time()
 
-        # Print the training time
-        # print(f"Training time (GPU): {end_time - start_time:.2f} seconds")
+
         runtimes.append(end_time - start_time)
+
+        # Evaluate the model
+        accuracy = gpu_model.evaluate(X_test_gpu, y_test_gpu)
+        accuracies.append(accuracy)
 
     # Print the average training time
     avg_runtime = np.mean(runtimes)
     print(f"Average training time (GPU): {avg_runtime:.2f} seconds")
 
-    # Evaluate the model
-    accuracy = gpu_model.evaluate(X_test_gpu, y_test_gpu)
-    print(f"Test accuracy (GPU): {accuracy:.2f}%")
+    # Print the average accuracy
+    avg_accuracy = np.mean(accuracies)
+    print(f"Average test accuracy (GPU): {avg_accuracy:.2f}%\n")
 
 if __name__ == "__main__":
     # Set Numba to use the CPU for this benchmark
     config.THREADING_LAYER = 'workqueue'
-    print("Numba threading layer set to workqueue for CPU execution.")
-    print("NUMBA_DEFAULT_NUM_THREADS:", config.NUMBA_DEFAULT_NUM_THREADS)
+    # print("Numba threading layer set to workqueue for CPU execution.")
+    max_threads = os.cpu_count()
+    config.NUMBA_NUM_THREADS = max_threads
+    print("Configured maximum threads:", config.NUMBA_NUM_THREADS)
+    print()
 
     # Run the benchmarks
     benchmark_baseline()
