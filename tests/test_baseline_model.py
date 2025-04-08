@@ -6,7 +6,7 @@ import sys
 # Add the project root directory to sys.path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from model_baseline import NeuralNetwork  # Adjust the import according to your project structure
+from baseline.model_baseline import NeuralNetwork  # Adjust the import according to your project structure
 
 class TestNeuralNetwork(unittest.TestCase):
     
