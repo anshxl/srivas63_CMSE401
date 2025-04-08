@@ -74,7 +74,6 @@ class NeuralNetwork:
         #Initialize list to store loss values
         self.loss_values = []
         
-        start_time = time.time()
         with tqdm(range(epochs), desc="Training", unit="epoch") as pbar:
             for i in pbar:
                 y_hat = self.forward_propagation(X)
@@ -88,9 +87,6 @@ class NeuralNetwork:
                 
                 # Update the progress bar with the current loss
                 pbar.set_postfix(loss=f'{loss:.4f}')
-        
-        total_time = time.time() - start_time
-        print(f"Total training time: {total_time:.2f} seconds")
         
     def predict(self, X):
         return np.argmax(self.forward_propagation(X), axis=1)
