@@ -1,6 +1,11 @@
 from gpu_model import GPUNeuralNetwork
 import cupy as cp # type: ignore[import]
 import numpy as np
+import sys
+import os
+
+# Add the project root directory to sys.path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from data_loader import load_data
 
 # Load data
