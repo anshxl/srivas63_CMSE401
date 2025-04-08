@@ -3,6 +3,17 @@
 import numpy as np
 
 class AdamOptimizer:
+    """
+    Adam optimizer for updating parameters using the Adam optimization algorithm.
+
+    Args:
+        parameters (list): List of parameters to be optimized.
+        learning_rate (float, optional): The learning rate. Default is 0.001.
+        beta1 (float, optional): Exponential decay rate for the first moment estimates. Default is 0.9.
+        beta2 (float, optional): Exponential decay rate for the second raw moment estimates. Default is 0.999.
+        epsilon (float, optional): Small value added to the denominator for numerical stability. Default is 1e-8.
+    """
+
     def __init__(self, parameters, learning_rate=0.001, beta1=0.9, beta2=0.999, epsilon=1e-8):
         self.learning_rate = learning_rate
         self.beta1 = beta1
@@ -15,6 +26,15 @@ class AdamOptimizer:
         self.parameters = parameters
 
     def update(self, grads):
+        """
+        Update the parameters using the Adam optimization algorithm.
+
+        Args:
+            grads (list): List of gradients for each parameter.
+
+        Returns:
+            list: Updated parameters.
+        """
         self.t += 1
         updated_params = []
         for i, (param, grad) in enumerate(zip(self.parameters, grads)):

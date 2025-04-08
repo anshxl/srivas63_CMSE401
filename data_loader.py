@@ -12,6 +12,14 @@ def transform_data(x):
     return x
 
 def load_data():
+    """
+    Loads and preprocesses the MNIST dataset.
+
+    Returns:
+        Tuple: A tuple containing the training and testing data and labels.
+            The training data and labels are further divided into x_train, y_train,
+            and the testing data and labels are divided into x_test, y_test.
+    """
     mnist = tensorflow.keras.datasets.mnist.load_data(
         path="mnist.npz"
     )
@@ -31,12 +39,3 @@ def load_data():
     y_test = one_hot_encode(y_test)
 
     return (x_train, y_train), (x_test, y_test)
-
-# if __name__ == "__main__":
-#     (x_train, y_train), (x_test, y_test) = load_data()
-    
-#     # Save the data to .npy files
-#     np.save("Data/x_train.npy", x_train)
-#     np.save("Data/y_train.npy", y_train)
-#     np.save("Data/x_test.npy", x_test)
-#     np.save("Data/y_test.npy", y_test)

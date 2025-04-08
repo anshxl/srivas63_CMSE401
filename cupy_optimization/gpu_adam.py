@@ -3,6 +3,17 @@
 import cupy as cp #type: ignore[import]
 
 class GPUAdamOptimizer:
+    """
+    GPUAdamOptimizer is a class that implements the Adam optimization algorithm for GPU-accelerated training.
+
+    Args:
+        parameters (list): List of parameters to optimize.
+        learning_rate (float, optional): The learning rate. Default is 0.001.
+        beta1 (float, optional): The exponential decay rate for the first moment estimates. Default is 0.9.
+        beta2 (float, optional): The exponential decay rate for the second raw moment estimates. Default is 0.999.
+        epsilon (float, optional): A small value added to the denominator for numerical stability. Default is 1e-8.
+    """
+
     def __init__(self, parameters, learning_rate=0.001, beta1=0.9, beta2=0.999, epsilon=1e-8):
         self.learning_rate = learning_rate
         self.beta1 = beta1

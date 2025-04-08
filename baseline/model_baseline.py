@@ -16,6 +16,30 @@ from adam import AdamOptimizer
 
 
 class NeuralNetwork:
+    """
+    A class representing a neural network model.
+
+    Parameters:
+    - input_size (int): The number of input nodes.
+    - hidden_size (int): The number of nodes in each hidden layer.
+    - output_size (int): The number of output nodes.
+
+    Methods:
+    - He_initialization(input_size, hidden_size): Initializes the weights using He initialization.
+    - init_params(input_size, hidden_size, output_size): Initializes the parameters of the neural network.
+    - relu(x): Applies the ReLU activation function to the input.
+    - softmax(x): Applies the softmax activation function to the input.
+    - cross_entropy_loss(y, y_hat): Computes the cross-entropy loss between the predicted and actual values.
+    - forward_propagation(X): Performs forward propagation to compute the output of the neural network.
+    - compute_gradients(X, y): Computes the gradients of the parameters with respect to the loss.
+    - train(X, y, learning_rate, epochs, verbose=True): Trains the neural network on the given data.
+    - predict(X): Predicts the output for the given input.
+    - evaluate(X, y): Evaluates the accuracy of the neural network on the given data.
+    - save_model(file_name): Saves the model parameters to a file.
+    - load_model(file_name): Loads the model parameters from a file.
+    - plot_loss(filename="loss_plot", format="png", show_inline=False, save=True): Plots the loss over epochs.
+    - plot_architecture(filename="model_architecture", format="png", show_inline=False): Plots the model architecture.
+    """
 
     def __init__(self, input_size, hidden_size, output_size):
         self.input_size = input_size
