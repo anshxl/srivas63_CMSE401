@@ -92,8 +92,7 @@ class NeuralNetwork:
         parameters = [self.W1, self.b1, self.W2, self.b2, self.W3, self.b3]
         adam = AdamOptimizer(parameters, learning_rate=learning_rate)
         self.loss_values = []
-        
-        start_time = time.time()
+
         with tqdm(range(epochs), desc="Training", unit="epoch") as pbar:
             for i in pbar:
                 y_hat = self.forward_propagation(X)
@@ -104,8 +103,6 @@ class NeuralNetwork:
                 adam.update(gradients)
                 self.W1, self.b1, self.W2, self.b2, self.W3, self.b3 = adam.parameters
                 pbar.set_postfix(loss=f'{loss:.4f}')
-        total_time = time.time() - start_time
-        print(f"Total training time: {total_time:.2f} seconds")
         
     def predict(self, X):
         return np.argmax(self.forward_propagation(X), axis=1)
