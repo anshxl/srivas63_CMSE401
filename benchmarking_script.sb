@@ -3,8 +3,8 @@
 #SBATCH --gpus=v100:1
 #SBATCH --mem-per-gpu=3G
 #SBATCH --time=00:10:00
-#SBATCH --job-name=CuPy
-#SBATCH --output=CuPy_%j.out
+#SBATCH --job-name=MLP
+#SBATCH --output=MLP_%j.out
 
 echo "This script runs and compares all three MLP implementations"
 
