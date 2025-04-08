@@ -3,7 +3,8 @@
 #SBATCH --gpus=v100:1
 #SBATCH --mem-per-gpu=3G
 #SBATCH --time=00:10:00
-#SBACTH --job-name=CuPy
+#SBATCH --job-name=CuPy
+#SBATCH --output=CuPy_%j.out
 
 echo "This script will train the CuPy implementation of our MLP"
 
