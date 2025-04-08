@@ -31,3 +31,12 @@ def load_data():
     y_test = one_hot_encode(y_test)
 
     return (x_train, y_train), (x_test, y_test)
+
+# if __name__ == "__main__":
+#     (x_train, y_train), (x_test, y_test) = load_data()
+    
+#     # Save the data to .npy files
+#     np.save("Data/x_train.npy", x_train)
+#     np.save("Data/y_train.npy", y_train)
+#     np.save("Data/x_test.npy", x_test)
+#     np.save("Data/y_test.npy", y_test)
