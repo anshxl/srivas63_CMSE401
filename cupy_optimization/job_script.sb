@@ -1,0 +1,19 @@
+#!/bin/bash
+#SBATCH --ntasks=1
+#SBATCH --gpus=v100:1
+#SBATCH --mem-per-gpu=3G
+#SBATCH --time=00:10:00
+#SBACTH --job-name=CuPy
+
+echo "This script will train the CuPy implementation of our MLP"
+
+module purge
+module load Miniforge3
+
+conda activate project1
+
+srun python cuda_optimization/training_cupy.py
+
+# Print resource information
+scontrol show job $SLURM_JOB_ID
+js -j $SLURM_JOB_ID
