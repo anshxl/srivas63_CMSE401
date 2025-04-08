@@ -55,7 +55,7 @@ class GPUNeuralNetwork:
         db1 = cp.sum(dz1, axis=0, keepdims=True) / m
         return [dW1, db1, dW2, db2, dW3, db3]
 
-    def train(self, X, y, learning_rate, epochs):
+    def train(self, X, y, learning_rate, epochs, verbose=True):
         # Ensure that X and y are on the GPU
         # (If they are NumPy arrays, convert with cp.asarray)
         X_gpu = X if isinstance(X, cp.ndarray) else cp.asarray(X)
@@ -66,14 +66,24 @@ class GPUNeuralNetwork:
         self.loss_values = []
         
         # Train without logging loss for each epoch on the progress bar
-        for _ in tqdm(range(epochs), desc="Training", unit="epoch"):
-            y_hat = self.forward_propagation(X_gpu)
-            loss = self.cross_entropy_loss(y_gpu, y_hat)
-            self.loss_values.append(loss)
-            
-            gradients = self.compute_gradients(X_gpu, y_gpu)
-            adam.update(gradients)
-            self.W1, self.b1, self.W2, self.b2, self.W3, self.b3 = adam.parameters
+        if verbose:
+            for _ in tqdm(range(epochs), desc="Training", unit="epoch"):
+                y_hat = self.forward_propagation(X_gpu)
+                loss = self.cross_entropy_loss(y_gpu, y_hat)
+                self.loss_values.append(loss)
+                
+                gradients = self.compute_gradients(X_gpu, y_gpu)
+                adam.update(gradients)
+                self.W1, self.b1, self.W2, self.b2, self.W3, self.b3 = adam.parameters
+        else:
+            for _ in range(epochs):
+                y_hat = self.forward_propagation(X_gpu)
+                loss = self.cross_entropy_loss(y_gpu, y_hat)
+                self.loss_values.append(loss)
+                
+                gradients = self.compute_gradients(X_gpu, y_gpu)
+                adam.update(gradients)
+                self.W1, self.b1, self.W2, self.b2, self.W3, self.b3 = adam.parameters
 
     def predict(self, X):
         # Ensure that the input is a CuPy array
