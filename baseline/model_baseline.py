@@ -66,7 +66,7 @@ class NeuralNetwork:
         db1 = np.sum(dz1, axis=0, keepdims=True) / m
         return [dW1, db1, dW2, db2, dW3, db3]
 
-    def train(self, X, y, learning_rate, epochs):
+    def train(self, X, y, learning_rate, epochs, verbose=True):
         # self.init_params(X.shape[1], hidden_size, output_size)
         parameters = [self.W1, self.b1, self.W2, self.b2, self.W3, self.b3]
         adam = AdamOptimizer(parameters, learning_rate=learning_rate)
@@ -74,8 +74,22 @@ class NeuralNetwork:
         #Initialize list to store loss values
         self.loss_values = []
         
-        with tqdm(range(epochs), desc="Training", unit="epoch") as pbar:
-            for i in pbar:
+        if verbose:
+            with tqdm(range(epochs), desc="Training", unit="epoch") as pbar:
+                for i in pbar:
+                    y_hat = self.forward_propagation(X)
+                    loss = self.cross_entropy_loss(y, y_hat)
+                    self.loss_values.append(loss)
+
+                    # Compute gradients and update weights
+                    gradients = self.compute_gradients(X, y)
+                    adam.update(gradients)
+                    self.W1, self.b1, self.W2, self.b2, self.W3, self.b3 = adam.parameters
+                    
+                    # Update the progress bar with the current loss
+                    pbar.set_postfix(loss=f'{loss:.4f}')
+        else:
+            for i in range(epochs):
                 y_hat = self.forward_propagation(X)
                 loss = self.cross_entropy_loss(y, y_hat)
                 self.loss_values.append(loss)
@@ -84,9 +98,6 @@ class NeuralNetwork:
                 gradients = self.compute_gradients(X, y)
                 adam.update(gradients)
                 self.W1, self.b1, self.W2, self.b2, self.W3, self.b3 = adam.parameters
-                
-                # Update the progress bar with the current loss
-                pbar.set_postfix(loss=f'{loss:.4f}')
         
     def predict(self, X):
         return np.argmax(self.forward_propagation(X), axis=1)
