@@ -36,22 +36,23 @@
 - [X] **Initial Testing**
   - [X] Compare outputs and gradients against expected results
 
-## Phase 4: CPU-based Optimization Experiments (Failed Approaches)
-- [X] **Refactor Critical Functions in low_level_ops.py**
-  - [X] Implement custom versions of key NumPy functions (e.g., dot, sum, mean, zeros) using explicit Python loops.
-  - [X] Decorate these functions with `@njit(parallel=True)` to accelerate them.
-- [X] **Integrate Low-Level Ops in the MLP Model**
-  - [X] Optionally refactor forward and gradient computations to use these low-level functions.
-  - [ ] Benchmark and document that these approaches did not outperform the vectorized NumPy baseline.
+## Phase 4: CPU Optimization Experiments (Failed Approaches)
+- [X] **Low-Level Python Implementation**
+  - [X] Implemented a custom low-level Python version of the MLP intended for Numba-optimization.
+  - [X] Observed failure: Numba optimization was ineffective because it requires its data to be on NumPy arrays.
+- [X] **Numba-Decorated NumPy Implementation**
+  - [X] Decorated core functions of the NumPy-based MLP implementation with `@njit` to attempt Numba speed-up.
+  - [X] Benchmark and document that no speed-up was achieved since NumPy is already highly optimized.
 
-## Phase 5: GPU Acceleration Implementation with CuPy
-- [ ] **GPU Operations Module**
-  - [ ] Create `gpu_ops.py` with GPU-accelerated equivalents for critical operations (e.g., matrix multiplication, activation functions).
-- [ ] **Integrate CuPy into the MLP Model**
-  - [ ] Modify the MLP class (or create a subclass) to use CuPy arrays and operations for forward propagation and weight updates.
+## Phase 5: GPU Optimization Efforts with CuPy
+- [X] **GPU Operations Module**
+  - [X] Develop `gpu_ops.py` with CuPy-accelerated equivalents for critical operations (e.g., matrix multiplication, activation functions).
+- [X] **CuPy-based MLP Integration**
+  - [X] Modify the MLP class (or create a subclass) to utilize CuPy arrays and operations for forward propagation and weight updates.
+- [ ] **Advanced GPU Kernel Optimization (Optional)**
+  - [ ] Explore the use of raw CuPy kernels or additional CuPy features for further acceleration.
 - [ ] **Benchmarking**
-  - [ ] Measure performance improvements of the GPU version against both the baseline NumPy and the CPU-based Numba versions.
-  - [ ] Update benchmarking scripts in `benchmark.py`.
+  - [ ] Update benchmarking scripts in `benchmark.py` to measure performance improvements compared to the baseline NumPy and CPU-based Numba implementations.
 
 ## Phase 6: Optimizer Integration (Adam & SGD)
 - [X] **Optimizer Interface**
@@ -72,19 +73,19 @@
 - [ ] **Batch Processing**
   - [ ] Implement and experiment with batch handling and various sizes
 - [ ] **Metric Logging**
-  - [ ] Log training metrics: loss, accuracy, execution time per iteration
-- [ ] **Benchmarking Scripts**
-  - [ ] Develop scripts in `benchmark.py` to compare NumPy vs. Numba vs. CuPy performance
+  - [X] Log training metrics: loss, accuracy, execution time per iteration
+- [X] **Benchmarking Scripts**
+  - [X] Develop scripts in `benchmark.py` to compare NumPy vs. Numba vs. CuPy performance
 
 ## Phase 8: Testing, Debugging, & Validation
-- [ ] **Unit Tests**
-  - [ ] Write tests for activation functions (ReLU, Softmax) for both CPU and GPU versions
-  - [ ] Validate forward propagation outputs and gradients
-  - [ ] Test optimizer weight updates
-- [ ] **Debugging**
-  - [ ] Use `numba.verbose=True` for diagnosing CPU parallelism issues and appropriate logging for CuPy
-- [ ] **Integration Testing**
-  - [ ] Run complete training loop tests to ensure expected behavior
+- [X] **Unit Tests**
+  - [X] Write tests for activation functions (ReLU, Softmax) for both CPU and GPU versions
+  - [X] Validate forward propagation outputs and gradients
+  - [X] Test optimizer weight updates
+- [X] **Debugging**
+  - [X] Use `numba.verbose=True` for diagnosing CPU parallelism issues and appropriate logging for CuPy
+- [X] **Integration Testing**
+  - [X] Run complete training loop tests to ensure expected behavior
 
 ## Phase 9: Documentation & Deployment
 - [ ] **Documentation**
