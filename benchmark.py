@@ -21,6 +21,9 @@ from cupy_optimization.gpu_model import GPUNeuralNetwork as GPU_NN
 
 from data_loader import load_data
 
+# Set the random seed for reproducibility
+np.random.seed(42)
+
 # Load data
 (X_train, y_train), (X_test, y_test) = load_data()
 
