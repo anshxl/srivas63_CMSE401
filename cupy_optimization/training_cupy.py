@@ -37,4 +37,7 @@ print(f"Training time: {end_time - start_time:.2f} seconds")
 accuracy = nn.evaluate(X_test_GPU, y_test_GPU)
 print(f"Test accuracy: {accuracy:.2f}%")
 
+# Save loss plots
+nn.plot_loss(show_inline=False)
+
 
