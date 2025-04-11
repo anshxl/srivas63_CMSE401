@@ -9,6 +9,9 @@ config.NUMBA_DEFAULT_NUM_THREADS = 10
 import numpy as np
 from data_loader import load_data
 
+# Set seed
+np.random.seed(42)
+
 (X_train, y_train), (X_test, y_test) = load_data()
 
 #initialize model
@@ -21,7 +24,7 @@ nn.warmup()
 # Train the model and time the training process
 import time
 start_time = time.time()
-nn.train(X_train, y_train, learning_rate=0.001, epochs=10)
+nn.train(X_train, y_train, learning_rate=0.001, epochs=40)
 end_time = time.time()
 
 # Print the training time
@@ -31,3 +34,6 @@ print(f"Training time: {end_time - start_time:.2f} seconds")
 accuracy = nn.evaluate(X_test, y_test)
 
 print(f"Test accuracy: {accuracy:.2f}%")
+
+# Plot loss
+nn.plot_loss()

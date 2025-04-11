@@ -281,10 +281,10 @@ class NeuralNetwork:
         plt.figure(figsize=(10, 6))
         plt.plot(self.loss_values)
         #plt.scatter(range(len(self.loss_values)), self.loss_values, color='r')
-        plt.title("Loss over epochs")
+        plt.title("Loss over epochs (Numba Model)")
         plt.xlabel("Epoch")
         plt.ylabel("Cross-entropy loss")
         plt.grid(True, alpha=0.5)
         plt.tight_layout()
         if save:
-            plt.savefig(f"plots/{filename}.{format}", format=format)
+            plt.savefig(f"numba_optimization/plots/{filename}.{format}", format=format)
