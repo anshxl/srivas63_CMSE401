@@ -13,7 +13,7 @@ module load Miniforge3
 
 conda activate project1
 
-srun python training_cupy.py
+srun python cupy_optimization/training_cupy.py
 
 # Print resource information
 #scontrol show job $SLURM_JOB_ID
