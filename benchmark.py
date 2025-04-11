@@ -61,6 +61,8 @@ def benchmark_baseline():
     avg_accuracy = np.mean(accuracies)
     print(f"Average test accuracy (Baseline): {avg_accuracy:.2f}%\n")
 
+    # Plot the loss values
+    baseline_model.plot_loss()
 
 # Train and evaluate the Numba model 10 times, and time each run
 def benchmark_numba():
@@ -92,6 +94,9 @@ def benchmark_numba():
     avg_accuracy = np.mean(accuracies)
     print(f"Average test accuracy (Numba): {avg_accuracy:.2f}%\n")
 
+    # Plot the loss values
+    numba_model.plot_loss()
+
 # Train and evaluate the GPU model 10 times, and time each run
 def benchmark_gpu():
     print("Benchmarking GPU Model...")
@@ -118,6 +123,9 @@ def benchmark_gpu():
     # Print the average accuracy
     avg_accuracy = np.mean(accuracies)
     print(f"Average test accuracy (GPU): {avg_accuracy:.2f}%\n")
+
+    # Plot the loss values
+    gpu_model.plot_loss()
 
 if __name__ == "__main__":
     # Set Numba to use the CPU for this benchmark
