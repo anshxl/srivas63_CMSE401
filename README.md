@@ -82,9 +82,8 @@ The project requires Python 3.8 or higher. A virtual environment is recommended 
    pip install numpy numba cupy scipy matplotlib tqdm tensorflow
    ```
 
-4. **Version Control:**
-
-   Ensure that you initialize and maintain a Git repository. All setup steps and development progress are documented in the repository's history.
+4. **HPCC Instructios:**
+  These can be found under the `Example` directory, in the README.md file
 
 ---
 
