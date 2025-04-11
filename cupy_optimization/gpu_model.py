@@ -237,7 +237,7 @@ class GPUNeuralNetwork:
         # Convert loss_values from CuPy to NumPy
         loss_values_np = cp.asnumpy(cp.array(self.loss_values))
         plt.plot(loss_values_np)
-        plt.title("Loss over epochs")
+        plt.title("Loss over epochs - GPU Model")
         plt.xlabel("Epoch")
         plt.ylabel("Cross-entropy loss")
         plt.grid(True, alpha=0.5)
