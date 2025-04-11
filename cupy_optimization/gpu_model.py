@@ -242,5 +242,5 @@ class GPUNeuralNetwork:
         plt.grid(True, alpha=0.5)
         plt.tight_layout()
         if save:
-            plt.savefig(f"plots/{filename}.{format}", format=format)
+            plt.savefig(f"cupy_optimization/plots/{filename}.{format}", format=format)
     
