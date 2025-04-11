@@ -24,3 +24,6 @@ print(f"Training time: {end_time - start_time:.2f} seconds")
 accuracy = nn.evaluate(X_test, y_test)
 
 print(f"Test accuracy: {accuracy:.2f}%")
+
+# Plot the loss over epochs
+nn.plot_loss()
