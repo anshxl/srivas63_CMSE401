@@ -234,8 +234,9 @@ class GPUNeuralNetwork:
             raise ImportError("matplotlib and IPython are required. Install with 'pip install matplotlib ipython'.")
         
         plt.figure(figsize=(10, 6))
-        plt.plot(self.loss_values)
-        #plt.scatter(range(len(self.loss_values)), self.loss_values, color='r')
+        # Convert loss_values from CuPy to NumPy
+        loss_values_np = cp.asnumpy(cp.array(self.loss_values))
+        plt.plot(loss_values_np)
         plt.title("Loss over epochs")
         plt.xlabel("Epoch")
         plt.ylabel("Cross-entropy loss")
