@@ -12,37 +12,18 @@ Table of Contents
 
 [Methodology](#methodology)
 
-[1. Baseline Model 4](#_Toc195256877)
-
-[2. Numba-Optimized MLP 4](#_Toc195256878)
-
-[3. CuPy-Based MLP with GPU Parallelization 5](#_Toc195256879)
-
-[Benchmarking Procedure 5](#_Toc195256880)
-
 [Timing Results](#timing-results)
 
-[1. Baseline MLP (NumPy) 6](#_Toc195256882)
+[Table](#table-1)
 
-[2. Numba-JIT MLP 7](#_Toc195256883)
+[Concluding Discussion and Future Work](#concluding-discussion-and-future-work)
 
-[3. CuPy-Accelerated MLP 8](#_Toc195256884)
-
-[Table 1 9](#_Toc195256885)
-
-[Concluding Discussion and Future Work 9](#_Toc195256886)
-
-[Discussion 9](#_Toc195256887)
-
-[Future Work 9](#_Toc195256888)
-
-[References 11](#_Toc195256889)
+[References](#references)
 
 ## Abstract
 
 This project delves into optimizing multi-layer perceptron (MLP) training within the deep learning domain by exploring various acceleration techniques. Our motivation stems from the educational interest in understanding how computation can be enhanced, especially for workloads that rely heavily on numerical operations. The baseline MLP, developed in NumPy, was chosen due to its inherent optimizations, making any further CPU-based speedup challenging. We experimented with two main strategies: just-in-time (JIT) compilation using Numba and GPU parallelization with CuPy. While JIT compilation introduced minor overheads leading to a slight slowdown, leveraging GPU capabilities with CuPy achieved over a 100x speed-up in training. Although these improvements are not groundbreaking, they offer valuable insights into the strengths and limitations of each approach, serving as an informative exploration of current techniques in high-performance deep learning computations.
 
-Acceleration Multi-Layer Perceptron Training with Numba Optimization and Parallelization
 
 ## Methodology
 
@@ -55,6 +36,8 @@ The starting point of our study was a multi-layer perceptron (MLP) implemented s
 * **Output Layer:** 10 neurons with SoftMax activation to generate class probabilities for the digit categories.
 
 This design serves as the control model to benchmark subsequent optimization attempts. Below is a diagram showing the MLP architecture.
+
+![Figure 1: MLP Architecture](model_architecture.png)
 
 ### 2. Numba-Optimized MLP
 
@@ -78,7 +61,7 @@ After developing three different MLP variants—NumPy-based, Numba-JIT-compiled,
 * **Training Curve:** As seen in the plot (titled *Loss over epochs - Baseline Model*), the cross-entropy loss steadily decreased from above 2.0 down to roughly 0.4 by the 40th epoch, indicating stable convergence.
 * **Accuracy:** The final test accuracy was consistent across runs (91.35%), demonstrating that a pure NumPy approach is both reliable and straightforward for small-to-medium-sized datasets.
 
-
+![Figure 2: Loss over epochs - Baseline Model](loss_plot-NumPy.png)
 
 ### 2. Numba-JIT MLP
 
@@ -86,11 +69,7 @@ After developing three different MLP variants—NumPy-based, Numba-JIT-compiled,
 * **Training Curve:** As illustrated in the second plot (*Loss over epochs - Numba Model*), the training curve closely mirrored that of the baseline MLP, underscoring that the model’s convergence behavior remained virtually the same.
 * **Accuracy:** Like the baseline, the Numba-optimized model maintained similar final accuracies (91.43%), reaffirming that the approach did not degrade predictive performance.
 
-![A graph with a blue line
-
-AI-generated content may be incorrect.](data:image/png;base64...)
-
-Figure 3: Loss over epochs - Numba Model
+![Figure 3: Loss over epochs - Numba Model](loss_plot-Numba.png)
 
 ### 3. CuPy-Accelerated MLP
 
@@ -98,11 +77,7 @@ Figure 3: Loss over epochs - Numba Model
 * **Training Curve:** As illustrated in the third plot (*Loss over epochs - GPU Model*), the training curve again closely mirrored that of the baseline MLP and Numba MLP, showing again that the convergence behavior remains the same.
 * **Accuracy**: Despite the massive speed-up, the final accuracy was nearly identical to the other two variants (91.44%), indicating that parallelizing the core operations onto a GPU has no adverse effect on model quality for this MNIST task.
 
-![A graph with a blue line
-
-AI-generated content may be incorrect.](data:image/png;base64...)
-
-Figure 4: Loss over epochs - GPU Model
+![Figure 4: Loss over epochs - GPU Model](GPU_loss_plot.png)
 
 Overall, these results confirm that while Numba JIT compilation did not yield the anticipated speed-up over NumPy on a CPU-based system, utilizing CuPy on a GPU can deliver dramatic gains. The loss plots further illustrate that all three implementations converge similarly on MNIST, with final accuracies remaining close across the board.
 
