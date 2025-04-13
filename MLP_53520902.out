@@ -1,50 +1,0 @@
-This script runs and compares all three MLP implementations
-Configured maximum threads: 40
-
-Benchmarking Baseline Model...
-Baseline Model:   0%|          | 0/5 [00:00<?, ?it/s]Baseline Model:  20%|██        | 1/5 [00:48<03:13, 48.47s/it]Baseline Model:  40%|████      | 2/5 [01:36<02:25, 48.44s/it]Baseline Model:  60%|██████    | 3/5 [02:25<01:36, 48.40s/it]Baseline Model:  80%|████████  | 4/5 [03:13<00:48, 48.40s/it]Baseline Model: 100%|██████████| 5/5 [04:02<00:00, 48.39s/it]Baseline Model: 100%|██████████| 5/5 [04:02<00:00, 48.40s/it]
-Average training time (Baseline): 48.31 seconds
-Average test accuracy (Baseline): 91.60%
-
-Benchmarking Numba Model...
-Numba Model:   0%|          | 0/5 [00:00<?, ?it/s]Numba Model:  20%|██        | 1/5 [00:57<03:48, 57.22s/it]Numba Model:  40%|████      | 2/5 [01:51<02:45, 55.33s/it]Numba Model:  60%|██████    | 3/5 [02:45<01:49, 54.74s/it]Numba Model:  80%|████████  | 4/5 [03:39<00:54, 54.45s/it]Numba Model: 100%|██████████| 5/5 [04:33<00:00, 54.26s/it]Numba Model: 100%|██████████| 5/5 [04:33<00:00, 54.64s/it]
-Average training time (Numba): 53.88 seconds
-Average test accuracy (Numba): 91.65%
-
-Benchmarking GPU Model...
-GPU Model:   0%|          | 0/5 [00:00<?, ?it/s]GPU Model:  20%|██        | 1/5 [00:00<00:02,  1.50it/s]GPU Model:  40%|████      | 2/5 [00:01<00:01,  1.98it/s]GPU Model:  60%|██████    | 3/5 [00:01<00:00,  2.21it/s]GPU Model:  80%|████████  | 4/5 [00:01<00:00,  2.33it/s]GPU Model: 100%|██████████| 5/5 [00:02<00:00,  2.41it/s]GPU Model: 100%|██████████| 5/5 [00:02<00:00,  2.24it/s]
-Average training time (GPU): 0.35 seconds
-Average test accuracy (GPU): 91.27%
-
-Traceback (most recent call last):
-  File "/mnt/ffs24/home/srivas63/srivas63_CMSE401/benchmark.py", line 142, in <module>
-    benchmark_gpu()
-  File "/mnt/ffs24/home/srivas63/srivas63_CMSE401/benchmark.py", line 128, in benchmark_gpu
-    gpu_model.plot_loss()
-  File "/mnt/ffs24/home/srivas63/srivas63_CMSE401/cupy_optimization/gpu_model.py", line 237, in plot_loss
-    plt.plot(self.loss_values)
-  File "/mnt/home/srivas63/.conda/envs/project1/lib/python3.11/site-packages/matplotlib/pyplot.py", line 3827, in plot
-    return gca().plot(
-           ^^^^^^^^^^^
-  File "/mnt/home/srivas63/.conda/envs/project1/lib/python3.11/site-packages/matplotlib/axes/_axes.py", line 1777, in plot
-    lines = [*self._get_lines(self, *args, data=data, **kwargs)]
-            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/mnt/home/srivas63/.conda/envs/project1/lib/python3.11/site-packages/matplotlib/axes/_base.py", line 297, in __call__
-    yield from self._plot_args(
-               ^^^^^^^^^^^^^^^^
-  File "/mnt/home/srivas63/.conda/envs/project1/lib/python3.11/site-packages/matplotlib/axes/_base.py", line 486, in _plot_args
-    x, y = index_of(xy[-1])
-           ^^^^^^^^^^^^^^^^
-  File "/mnt/home/srivas63/.conda/envs/project1/lib/python3.11/site-packages/matplotlib/cbook.py", line 1676, in index_of
-    y = _check_1d(y)
-        ^^^^^^^^^^^^
-  File "/mnt/home/srivas63/.conda/envs/project1/lib/python3.11/site-packages/matplotlib/cbook.py", line 1368, in _check_1d
-    return np.atleast_1d(x)
-           ^^^^^^^^^^^^^^^^
-  File "<__array_function__ internals>", line 180, in atleast_1d
-  File "/mnt/home/srivas63/.conda/envs/project1/lib/python3.11/site-packages/numpy/core/shape_base.py", line 65, in atleast_1d
-    ary = asanyarray(ary)
-          ^^^^^^^^^^^^^^^
-  File "cupy/_core/core.pyx", line 1528, in cupy._core.core._ndarray_base.__array__
-TypeError: Implicit conversion to a NumPy array is not allowed. Please use `.get()` to construct a NumPy array explicitly.
-srun: error: nvl-005: task 0: Exited with exit code 1

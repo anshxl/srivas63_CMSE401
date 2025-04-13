@@ -1,6 +1,0 @@
-This script will train the CuPy implementation of our MLP
-2025-04-08 10:28:12.955662: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
-To enable the following instructions: SSE4.1 SSE4.2 AVX AVX2 AVX512F FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
-Training:   0%|          | 0/40 [00:00<?, ?epoch/s]Training:   2%|▎         | 1/40 [00:00<00:06,  5.91epoch/s]Training:  48%|████▊     | 19/40 [00:00<00:00, 81.60epoch/s]Training:  72%|███████▎  | 29/40 [00:00<00:00, 86.73epoch/s]Training:  98%|█████████▊| 39/40 [00:00<00:00, 90.48epoch/s]Training: 100%|██████████| 40/40 [00:00<00:00, 80.20epoch/s]
-Training time: 0.50 seconds
-Test accuracy: 91.29%

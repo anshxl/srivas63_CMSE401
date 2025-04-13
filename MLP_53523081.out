@@ -1,8 +1,0 @@
-This script runs and compares all three MLP implementations
-Configured maximum threads: 40
-
-Benchmarking GPU Model...
-GPU Model:   0%|          | 0/5 [00:00<?, ?it/s]GPU Model:  20%|██        | 1/5 [00:02<00:08,  2.12s/it]GPU Model:  40%|████      | 2/5 [00:02<00:03,  1.10s/it]GPU Model:  60%|██████    | 3/5 [00:02<00:01,  1.28it/s]GPU Model:  80%|████████  | 4/5 [00:03<00:00,  1.60it/s]GPU Model: 100%|██████████| 5/5 [00:03<00:00,  1.85it/s]GPU Model: 100%|██████████| 5/5 [00:03<00:00,  1.36it/s]
-Average training time (GPU): 0.49 seconds
-Average test accuracy (GPU): 91.27%
-

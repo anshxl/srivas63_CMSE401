@@ -259,7 +259,7 @@ class NeuralNetwork:
     def __len__(self):
         return self.hidden_size
     
-    def plot_loss(self, filename="loss_plot", format="png", show_inline=False, save=True):
+    def plot_loss(self, filename="loss_plot-Numba", format="png", show_inline=False, save=True):
         """
         Plot the loss values over epochs.
 
@@ -287,4 +287,4 @@ class NeuralNetwork:
         plt.grid(True, alpha=0.5)
         plt.tight_layout()
         if save:
-            plt.savefig(f"numba_optimization/plots/{filename}.{format}", format=format)
+            plt.savefig(f"{filename}.{format}", format=format)

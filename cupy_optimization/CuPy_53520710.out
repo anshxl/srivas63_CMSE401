@@ -1,9 +1,0 @@
-This script will train the CuPy implementation of our MLP
-Traceback (most recent call last):
-  File "/mnt/ffs24/home/srivas63/srivas63_CMSE401/cupy_optimization/training_cupy.py", line 1, in <module>
-    from gpu_model import GPUNeuralNetwork
-  File "/mnt/ffs24/home/srivas63/srivas63_CMSE401/cupy_optimization/gpu_model.py", line 5, in <module>
-    from cupy_optimization.gpu_adam import GPUAdamOptimizer  # Import the GPU Adam optimizer
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-ModuleNotFoundError: No module named 'cupy_optimization'
-srun: error: nvl-000: task 0: Exited with exit code 1
