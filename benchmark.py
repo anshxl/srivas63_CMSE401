@@ -4,6 +4,10 @@
 import numpy as np
 import time
 import os
+import sys
+
+# Add the parent directory to the system path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # Suppress TensorFlow log messages
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # or '3' to hide warnings too
