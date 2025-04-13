@@ -1,0 +1,25 @@
+This script runs and compares all three MLP implementations
+Configured maximum threads: 40
+
+Benchmarking Baseline Model...
+Baseline Model:   0%|          | 0/5 [00:00<?, ?it/s]Baseline Model:  20%|██        | 1/5 [00:36<02:25, 36.42s/it]Baseline Model:  40%|████      | 2/5 [01:12<01:49, 36.48s/it]Baseline Model:  60%|██████    | 3/5 [01:49<01:12, 36.39s/it]Baseline Model:  80%|████████  | 4/5 [02:25<00:36, 36.33s/it]Baseline Model: 100%|██████████| 5/5 [03:01<00:00, 36.36s/it]Baseline Model: 100%|██████████| 5/5 [03:01<00:00, 36.37s/it]
+Average training time (Baseline): 36.31 seconds
+Average test accuracy (Baseline): 91.60%
+
+Traceback (most recent call last):
+  File "/mnt/ffs24/home/srivas63/srivas63_CMSE401/baseline/model_baseline.py", line 150, in plot_loss
+    import matplotlib.pyplot as plt #type: ignore
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'matplotlib'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt/ffs24/home/srivas63/srivas63_CMSE401/benchmark.py", line 140, in <module>
+    benchmark_baseline()
+  File "/mnt/ffs24/home/srivas63/srivas63_CMSE401/benchmark.py", line 65, in benchmark_baseline
+    baseline_model.plot_loss()
+  File "/mnt/ffs24/home/srivas63/srivas63_CMSE401/baseline/model_baseline.py", line 153, in plot_loss
+    raise ImportError("matplotlib and IPython are required. Install with 'pip install matplotlib ipython'.")
+ImportError: matplotlib and IPython are required. Install with 'pip install matplotlib ipython'.
+srun: error: nvl-003: task 0: Exited with exit code 1

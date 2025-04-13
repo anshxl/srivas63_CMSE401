@@ -141,6 +141,6 @@ if __name__ == "__main__":
     print()
 
     # Run the benchmarks
-    #benchmark_baseline()
-    #benchmark_numba()
+    benchmark_baseline()
+    benchmark_numba()
     benchmark_gpu()

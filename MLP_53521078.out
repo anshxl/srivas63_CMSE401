@@ -1,0 +1,37 @@
+This script runs and compares all three MLP implementations
+Configured maximum threads: 40
+
+Benchmarking GPU Model...
+GPU Model:   0%|          | 0/5 [00:00<?, ?it/s]GPU Model:  20%|██        | 1/5 [00:00<00:02,  1.58it/s]GPU Model:  40%|████      | 2/5 [00:01<00:01,  2.03it/s]GPU Model:  60%|██████    | 3/5 [00:01<00:00,  2.24it/s]GPU Model:  80%|████████  | 4/5 [00:01<00:00,  2.35it/s]GPU Model: 100%|██████████| 5/5 [00:02<00:00,  2.42it/s]GPU Model: 100%|██████████| 5/5 [00:02<00:00,  2.27it/s]
+Average training time (GPU): 0.35 seconds
+Average test accuracy (GPU): 91.56%
+
+Traceback (most recent call last):
+  File "/mnt/ffs24/home/srivas63/srivas63_CMSE401/benchmark.py", line 142, in <module>
+    benchmark_gpu()
+  File "/mnt/ffs24/home/srivas63/srivas63_CMSE401/benchmark.py", line 128, in benchmark_gpu
+    gpu_model.plot_loss()
+  File "/mnt/ffs24/home/srivas63/srivas63_CMSE401/cupy_optimization/gpu_model.py", line 246, in plot_loss
+    plt.savefig(f"cupy_optimization/plots/{filename}.{format}", format=format)
+  File "/mnt/home/srivas63/.conda/envs/project1/lib/python3.11/site-packages/matplotlib/pyplot.py", line 1243, in savefig
+    res = fig.savefig(*args, **kwargs)  # type: ignore[func-returns-value]
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/home/srivas63/.conda/envs/project1/lib/python3.11/site-packages/matplotlib/figure.py", line 3490, in savefig
+    self.canvas.print_figure(fname, **kwargs)
+  File "/mnt/home/srivas63/.conda/envs/project1/lib/python3.11/site-packages/matplotlib/backend_bases.py", line 2184, in print_figure
+    result = print_method(
+             ^^^^^^^^^^^^^
+  File "/mnt/home/srivas63/.conda/envs/project1/lib/python3.11/site-packages/matplotlib/backend_bases.py", line 2040, in <lambda>
+    print_method = functools.wraps(meth)(lambda *args, **kwargs: meth(
+                                                                 ^^^^^
+  File "/mnt/home/srivas63/.conda/envs/project1/lib/python3.11/site-packages/matplotlib/backends/backend_agg.py", line 481, in print_png
+    self._print_pil(filename_or_obj, "png", pil_kwargs, metadata)
+  File "/mnt/home/srivas63/.conda/envs/project1/lib/python3.11/site-packages/matplotlib/backends/backend_agg.py", line 430, in _print_pil
+    mpl.image.imsave(
+  File "/mnt/home/srivas63/.conda/envs/project1/lib/python3.11/site-packages/matplotlib/image.py", line 1644, in imsave
+    image.save(fname, **pil_kwargs)
+  File "/mnt/home/srivas63/.conda/envs/project1/lib/python3.11/site-packages/PIL/Image.py", line 2591, in save
+    fp = builtins.open(filename, "w+b")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'cupy_optimization/plots/loss_plot.png'
+srun: error: nvl-005: task 0: Exited with exit code 1
