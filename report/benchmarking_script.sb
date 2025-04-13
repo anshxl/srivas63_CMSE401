@@ -1,0 +1,20 @@
+#!/bin/bash --login
+#SBATCH --ntasks=1
+#SBATCH --gpus=v100:1
+#SBATCH --mem-per-gpu=3G
+#SBATCH --time=00:30:00
+#SBATCH --job-name=MLP
+#SBATCH --output=MLP_%j.out
+
+echo "This script runs and compares all three MLP implementations"
+
+module purge
+module load Miniforge3
+
+conda activate project1
+
+srun python benchmark.py
+
+# Print resource information
+#scontrol show job $SLURM_JOB_ID
+#js -j $SLURM_JOB_ID
